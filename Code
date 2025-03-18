@@ -1,15 +1,75 @@
-def suma (a, b):
-def resta (a, b):
-def multuplicación (a, b):
-def división (a, b):
+class Calculadora:
+    def suma(self, a, b):
+        # Los parámetros a y b son copias de los valores originales
+        resultado = a + b
+        return resultado
 
+    def resta(self, a, b):
+        resultado = a - b
+        return resultado
 
-# Blucle Principal
-while True:
-    print ("1.- Suma")
-    print ("2.- Resta")
-    print ("3.- Multiplicación")
-    print ("4.- División")
-    print ("5.- Salir")
+    def multiplicacion(self, a, b):
+        resultado = a * b
+        return resultado
 
-    opcion = str(input("Elije un numero (1 al 5)"))
+    def division(self, a, b):
+        # Verificación de división por cero
+        if b == 0:
+            return "Error: División por cero"
+        resultado = a / b
+        return resultado
+
+def mostrar_menu():
+    print("\n=== Calculadora con pase por valor ===")
+    print("1. Suma")
+    print("2. Resta")
+    print("3. Multiplicación")
+    print("4. División")
+    print("5. Salir")
+
+def main():
+    calc = Calculadora()
+
+    while True:
+        mostrar_menu()
+        opcion = input("\nSeleccione una operación (1-5): ")
+
+        if opcion == '5':
+            print("¡Gracias por usar la calculadora!")
+            break
+
+        # Obtener los valores de entrada
+        try:
+            num1 = float(input("Ingrese el primer número: "))
+            num2 = float(input("Ingrese el segundo número: "))
+
+            # Los valores originales se mantienen sin cambios
+            valores_originales = (num1, num2)
+
+            if opcion == '1':
+                resultado = calc.suma(num1, num2)
+                operacion = '+'
+            elif opcion == '2':
+                resultado = calc.resta(num1, num2)
+                operacion = '-'
+            elif opcion == '3':
+                resultado = calc.multiplicacion(num1, num2)
+                operacion = '*'
+            elif opcion == '4':
+                resultado = calc.division(num1, num2)
+                operacion = '/'
+            else:
+                print("Opción no válida")
+                continue
+
+            # Mostrar resultado y demostrar que los valores originales no cambiaron
+            print(f"\nOperación: {num1} {operacion} {num2} = {resultado}")
+            print(f"Valores originales sin modificar: {valores_originales}")
+
+        except ValueError:
+            print("Error: Por favor ingrese números válidos")
+        except Exception as e:
+            print(f"Error: {str(e)}")
+
+if _name_ == "_main_":
+    main()
